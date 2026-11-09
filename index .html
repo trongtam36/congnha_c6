@@ -60,7 +60,7 @@
     .gradient-button {border:1px solid #f6bf38;border-radius:9px;color:#663208;background:linear-gradient(95deg,#fff27b,#f8c61b 44%,#fe8e0a);padding:13px 14px;font-weight:900;text-align:center;box-shadow:0 0 16px rgba(252,163,12,.27),inset 0 1px rgba(255,255,255,.45);transition:filter .15s,transform .15s;display:inline-flex;align-items:center;justify-content:center;gap:9px;}
     .gradient-button:hover {filter:brightness(1.1);transform:translateY(-1px)}
     .gradient-button:active{transform:translateY(0)}
-    .block-button {width:100%;min-height:46px;text-decoration:none;}
+    .block-button {width:100%;min-height:46px;}
     .outline-button {width:100%;background:rgba(16,19,36,.36);border:1px solid rgba(248,142,71,.66);color:#ffb350;font-weight:800;border-radius:9px;min-height:42px;padding:9px 12px;}
     .outline-button:hover {background:rgba(255,150,20,.1)}
     .small-label {display:flex;align-items:center;gap:8px;color:#f1eff0;font-weight:800;font-size:13px;margin:13px 0 8px;}
@@ -171,7 +171,7 @@
     .status-notice.success{border-color:rgba(72,177,133,.45)}
     .result-heading.success{color:#b8ebc9}.result-heading.warning{color:#f3c58d}
     .notice-box{border-color:rgba(211,166,104,.28);color:#d8c5aa}
-    /* Bảng 5 cổng: ba cột rõ ràng, giảm chói, nút truy cập nổi bật nhưng nhẹ mắt. */
+    /* Bảng chọn cổng: ba cột rõ ràng, giảm chói, nút truy cập nổi bật nhưng nhẹ mắt. */
     .dropdown{max-height:min(440px,62vh);border-color:rgba(224,165,100,.47);background:#292630;scrollbar-width:thin;scrollbar-color:#8b6949 #292630;overscroll-behavior:contain}
     .target-option,.target-option:nth-child(even){grid-template-columns:minmax(89px,.84fr) minmax(148px,1.16fr) minmax(169px,1.65fr);min-height:77px;gap:1px;border-bottom-color:rgba(232,188,133,.13);background:#2d2930}
     .target-option > .target-id,.target-option > .target-meta,.target-option > .target-message{min-height:77px}
@@ -220,6 +220,219 @@
       .target-option .target-message .link-marker{font-size:8px}
     }
     @media (prefers-reduced-motion:reduce){.ticker-track,.cta-marquee,.cta-marquee span,.target-option .target-message::before,.target-option .target-message .link-marker{animation:none!important;transform:none!important}}
+  
+    /* Bản cập nhật: thứ hạng thay đổi theo từng 30 phút, XX8 luôn đứng đầu. */
+    #find-gate{text-decoration:none}
+    .dropdown{max-height:min(550px,72vh)}
+    .target-option,.target-option:nth-child(even){min-height:91px}
+    .target-option > .target-id,.target-option > .target-meta,.target-option > .target-message{min-height:91px}
+    .gate-illustrative-note{display:block;color:#a9a3a7;font-size:9px;line-height:1.2;margin-top:1px}
+    .gate-low-warning{background:linear-gradient(120deg,#362a31,#4c2b33) !important;color:#ffd4d4 !important;cursor:default !important}
+    .gate-low-warning::before{display:none}
+    .gate-low-warning:hover{filter:none !important}
+    .target-option .target-message.gate-low-warning .cta-marquee{gap:5px}
+    .gate-low-warning .gate-alert{color:#ffb1b1;font-weight:900;font-size:11px;line-height:1.25;text-align:center;letter-spacing:.2px;animation:low-alert-glow 3.2s ease-in-out infinite}
+    .gate-low-warning .gate-low-detail{color:#ffccc8;font-weight:700;font-size:9px;line-height:1.32;text-align:center;text-wrap:balance;overflow-wrap:anywhere}
+    .gate-low-warning .gate-low-disclaimer{color:#c2a3a7;font-size:8px;line-height:1.15;text-align:center}
+    @keyframes low-alert-glow{0%,100%{opacity:1}50%{opacity:.7}}
+    /* Thông báo xác thực: một trạng thái lỗi rõ ràng và một trạng thái chúc mừng. */
+    .modal.alert-mode{border-color:#fa616a;box-shadow:0 0 0 2px rgba(255,92,101,.12),0 0 36px rgba(245,58,70,.28),0 18px 55px #000a;animation:pop .2s ease-out,modal-alert-shake .52s .18s ease-out}
+    .modal.celebrate-mode{border-color:#62dcab;box-shadow:0 0 30px rgba(60,217,152,.18),0 18px 55px #000a}
+    .modal.alert-mode .modal-head{border-color:rgba(242,100,110,.46)}
+    .result-visual{height:92px;position:relative;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+    .result-symbol{display:grid;place-items:center;width:61px;height:61px;border-radius:50%;font-size:33px;font-weight:900;line-height:1;z-index:2}
+    .result-symbol.ok{background:#1e5d48;border:2px solid #65d9a4;color:#d1ffe9;animation:check-pop .75s cubic-bezier(.2,1.5,.35,1) both;box-shadow:0 0 28px rgba(87,218,167,.34)}
+    .result-symbol.fail{background:#66262f;border:2px solid #ff7279;color:#ffe5e5;animation:alarm-pulse 1.25s ease-in-out 2;box-shadow:0 0 22px rgba(243,67,77,.25)}
+    .modal .result-heading.success{color:#b8f0d0}
+    .modal .result-heading.warning{color:#ff999d}
+    .confetti-piece{position:absolute;z-index:1;left:50%;top:45%;width:7px;height:10px;border-radius:1px;background:var(--confetti-color);opacity:0;animation:confetti-burst 1.7s ease-out var(--confetti-delay) both;pointer-events:none}
+    .result-explainer{text-align:center;color:#c5ccd2;font-size:11px;line-height:1.5;margin:8px 0 3px}
+    .result-caution{background:rgba(84,25,31,.43);border:1px solid rgba(237,88,99,.42);color:#ffccce;border-radius:9px;padding:10px 11px;font-size:11px;text-align:center;line-height:1.5;margin-top:9px}
+    .result-ok-note{background:rgba(20,79,59,.26);border:1px solid rgba(98,220,171,.36);color:#d7e9e2;border-radius:9px;padding:10px 11px;font-size:11px;text-align:center;line-height:1.5;margin-top:9px}
+    @keyframes modal-alert-shake{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-7px)}30%,60%,90%{transform:translateX(7px)}}
+    @keyframes check-pop{0%{transform:scale(.2);opacity:0}55%{transform:scale(1.14)}100%{transform:scale(1);opacity:1}}
+    @keyframes alarm-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+    @keyframes confetti-burst{0%{opacity:0;transform:translate(0,0) rotate(0deg) scale(.4)}12%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(var(--confetti-x),var(--confetti-y)) rotate(var(--confetti-rotate)) scale(.8)}}
+    @media (max-width:600px){
+      .dropdown{max-height:min(530px,74vh)}
+      .target-option,.target-option:nth-child(even){min-height:99px}
+      .target-option > .target-id,.target-option > .target-meta,.target-option > .target-message{min-height:99px}
+      .target-option .target-meta{padding:6px 5px}
+      .gate-low-warning .gate-alert{font-size:9px}
+      .gate-low-warning .gate-low-detail{font-size:8px;line-height:1.23}
+      .gate-low-warning .gate-low-disclaimer{font-size:7px}
+      .gate-illustrative-note{font-size:8px}
+    }
+    @media(max-width:350px){.gate-low-warning .gate-alert{font-size:8px}.gate-low-warning .gate-low-detail{font-size:7px}}
+    @media(prefers-reduced-motion:reduce){.confetti-piece,.result-symbol,.modal.alert-mode,.gate-low-warning .gate-alert{animation:none!important;opacity:1!important}}
+
+    /* Tinh chỉnh theo yêu cầu: hiệu ứng logo, cảnh báo đỏ và nội dung FAQ. */
+    .wordmark{background-size:230% 100%;background-position:0% center;animation:brand-shimmer 7.4s ease-in-out infinite}
+    @keyframes brand-shimmer{
+      0%,100%{background-position:0% center;filter:drop-shadow(0 2px 5px rgba(243,133,44,.13))}
+      45%,55%{background-position:100% center;filter:drop-shadow(0 2px 12px rgba(244,162,65,.36))}
+    }
+    .outline-button{text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}
+    .faq-panel{padding:16px 18px;background:linear-gradient(125deg,rgba(44,34,41,.88),rgba(31,30,45,.82));border-color:rgba(208,154,98,.38)}
+    .faq-entry+.faq-entry{margin-top:15px;padding-top:14px;border-top:1px solid rgba(225,173,108,.15)}
+    .faq-entry h3{font-size:14px;line-height:1.3;margin:0 0 6px;color:#ffe0a8}
+    .faq-entry p{font-size:12px;line-height:1.75;margin:0;color:#e0d8d6}
+    .faq-source{margin:14px 0 0;font-size:10px;color:#b3aeb2;font-weight:400}
+    .modal.alert-mode{border:2px solid #ff3b50;background:linear-gradient(145deg,#54202b,#351923 57%,#271823);box-shadow:0 0 0 2px rgba(255,64,85,.15),0 0 46px rgba(230,42,70,.41),0 20px 55px #000c;animation:pop .2s ease-out,modal-alert-shake .52s .18s ease-out}
+    .modal.alert-mode .modal-head{background:linear-gradient(90deg,rgba(157,28,49,.62),rgba(91,24,42,.26));border-bottom:1px solid #fb5265}
+    .modal.alert-mode .modal-head h3{color:#ffeff1}
+    .modal.alert-mode .result-heading.warning{color:#fff3f3;text-shadow:0 0 16px #ff4051}
+    .modal.alert-mode .result-symbol.fail{background:#a8273b;border-color:#ff6d7e;box-shadow:0 0 0 8px rgba(245,68,94,.11),0 0 33px rgba(240,65,88,.46)}
+    .modal.alert-mode .result-caution{background:rgba(171,33,57,.26);border:1px solid rgba(255,98,114,.72);color:#fff2f2}
+    .gate-low-warning{background:linear-gradient(125deg,#40232d,#592431) !important}
+    .gate-low-warning .gate-alert{color:#ff6f7f !important;text-shadow:0 0 9px rgba(255,72,92,.28);font-weight:900}
+    .gate-low-warning .gate-low-detail{color:#ffd2d5}
+    .gate-low-warning .gate-low-disclaimer{color:#e0b7bb}
+    .country-alert-text{margin:3px 0 12px;text-align:center;color:#ff8492;font-size:16px;font-weight:900;letter-spacing:.15px;line-height:1.35}
+    @media(prefers-reduced-motion:reduce){.wordmark{animation:none!important;background-position:45% center!important}}
+
+
+    /* 2026-11: Chỉ làm mới logo và hai nút hành động chính.
+       Giữ nguyên nội dung, liên kết, chức năng và những phần giao diện khác. */
+    .wordmark {
+      position: relative;
+      display: inline-block;
+      letter-spacing: -.7px;
+      padding: 2px 1px;
+      background-image: linear-gradient(110deg,
+        #e7a33b 0%, #ffdc80 11%, #fff5d3 22%, #ffb547 33%,
+        #d77b2a 44%, #fff7db 53%, #ffcc63 65%, #fff6d8 78%,
+        #db8434 90%, #f8d685 100%);
+      background-size: 240% 100%;
+      background-position: 0% 50%;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-stroke: .38px rgba(255,226,158,.45);
+      filter: drop-shadow(0 2px 0 rgba(69,33,11,.75))
+              drop-shadow(0 0 11px rgba(255,171,65,.28));
+      animation: xoama-gold-wave 7s ease-in-out infinite;
+    }
+    .landing .wordmark::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 13%; right: 13%; bottom: -1px;
+      height: 2px;
+      border-radius: 100%;
+      background: linear-gradient(90deg, transparent, #d58436, #ffefb1 50%, #d58436, transparent);
+      box-shadow: 0 0 13px rgba(241,164,65,.27);
+      opacity: .8;
+      transform-origin: center;
+      animation: xoama-line-breathe 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes xoama-gold-wave {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes xoama-line-breathe {
+      0%,100% { transform: scaleX(.82); opacity: .48; }
+      50% { transform: scaleX(1); opacity: .94; }
+    }
+
+    /* Chỉ hai nút này có phong cách mới; các nút modal khác giữ nguyên. */
+    #find-gate, #run-action {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      width: 100%;
+      min-height: 70px;
+      padding: 15px 21px;
+      border-radius: 13px;
+      font-size: clamp(17px,1.64vw,19px);
+      font-weight: 900;
+      line-height: 1.42;
+      letter-spacing: .1px;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+      white-space: normal;
+      text-wrap: balance;
+      text-decoration: none;
+      transition: transform .22s ease, box-shadow .24s ease, filter .24s ease;
+    }
+    #find-gate {
+      color: #42230c;
+      border: 1px solid rgba(255,224,155,.9);
+      background: linear-gradient(112deg, #d88b3f 0%, #ffcf74 23%, #ffedba 40%, #e89c44 62%, #ffd58a 82%, #ce7c34 100%);
+      box-shadow: 0 3px 0 rgba(91,51,24,.75), 0 11px 25px rgba(191,113,38,.22), inset 0 1px 1px rgba(255,255,255,.53);
+    }
+    #find-gate > span {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      margin-right: 3px;
+      border-radius: 8px;
+      background: rgba(93,50,18,.13);
+      border: 1px solid rgba(110,59,20,.17);
+      font-size: 20px;
+      line-height: 1;
+    }
+    #run-action {
+      color: #edfff9;
+      border: 1px solid rgba(145,248,212,.79);
+      background: linear-gradient(109deg, #106f65 0%, #178e78 21%, #20aa87 43%, #137a70 66%, #19a38a 84%, #0b605e 100%);
+      box-shadow: 0 3px 0 rgba(3,58,54,.92), 0 10px 23px rgba(28,164,135,.19), inset 0 1px 1px rgba(220,255,244,.27);
+      text-shadow: 0 1px 1px rgba(4,62,52,.5);
+    }
+    #find-gate::before, #run-action::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: -75%; bottom: -75%;
+      left: -50%;
+      width: 30%;
+      transform: skewX(-27deg) translateX(0);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.36), transparent);
+      pointer-events: none;
+      animation: xoama-button-shine 5.2s ease-in-out infinite;
+    }
+    #run-action::before { animation-delay: 1.4s; background: linear-gradient(90deg, transparent, rgba(218,255,236,.2), transparent); }
+    @keyframes xoama-button-shine {
+      0%, 19% { left: -53%; opacity: 0; }
+      23% { opacity: .68; }
+      52% { left: 136%; opacity: .48; }
+      57%,100% { left: 136%; opacity: 0; }
+    }
+    #find-gate:hover, #run-action:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.08) brightness(1.045);
+    }
+    #find-gate:hover {
+      box-shadow: 0 4px 0 rgba(91,51,24,.66), 0 13px 31px rgba(223,146,61,.34), inset 0 1px 1px rgba(255,255,255,.58);
+    }
+    #run-action:hover {
+      box-shadow: 0 4px 0 rgba(3,58,54,.88), 0 14px 29px rgba(38,205,161,.31), inset 0 1px 1px rgba(220,255,244,.34);
+    }
+    #find-gate:active, #run-action:active { transform: translateY(1px); }
+    #find-gate:focus-visible, #run-action:focus-visible {
+      outline: 3px solid #fff1c3;
+      outline-offset: 4px;
+    }
+    @media (max-width: 600px) {
+      #find-gate,#run-action { min-height: 82px; padding: 15px 14px; font-size: 16.5px; line-height: 1.45; letter-spacing: 0; }
+      #run-action { min-height: 64px; font-size: 18px; }
+      #find-gate > span { width: 25px; height: 25px; }
+      .landing .wordmark::after { bottom: -1px; }
+    }
+    @media (max-width: 350px) {
+      #find-gate { font-size: 15.5px; min-height: 90px; padding-inline: 10px; }
+      #run-action { font-size: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wordmark,.landing .wordmark::after,#find-gate::before,#run-action::before {
+        animation: none !important;
+      }
+      #find-gate,#run-action { transition: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -227,7 +440,6 @@
 <section id="landing" class="landing" aria-label="Chọn quốc gia truy cập">
   <div class="landing-inner">
     <h1 class="wordmark">XOAMAGAME</h1>
-    <p class="landing-subtitle">Công nghệ mới nhất <span id="today-date">2026</span></p>
     <p class="section-kicker">Chọn quốc gia truy cập</p>
     <div class="countries">
       <button type="button" class="country" data-country="SINGAPORE" data-name="HELLO SINGAPORE" aria-label="Chọn Singapore">
@@ -267,7 +479,7 @@
           <li>Thiết lập lớp bảo mật 2FA và xác thực đa yếu tố</li>
           <li>Giám sát hoạt động real-time và phát hiện xâm nhập</li>
         </ul>
-        <a id="find-gate" class="gradient-button block-button" href="https://xx8win.net/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">ϟ</span> Tìm cổng đăng nhập cho tài khoản mới</a>
+        <a id="find-gate" class="gradient-button block-button" href="https://xx8abc.fun" target="_blank" rel="noopener noreferrer" aria-label="Tìm cổng đăng nhập cho tài khoản mới, mở XX8WIN trong tab mới"><span aria-hidden="true">ϟ</span> Tìm cổng uy tín đang nhả hỗ trợ thành viên mới</a>
       </article>
       <article class="panel">
         <div class="card-title"><span class="mini-icon">♙</span><div><h2>System Targets</h2><div class="card-subtitle">Chọn cổng để thực thi xoá mã ẩn</div></div></div>
@@ -280,11 +492,11 @@
         <input class="field" id="account-input" maxlength="80" placeholder="Nhập tài khoản..." autocomplete="off" spellcheck="false" />
         <div class="form-actions">
           <button id="run-action" class="gradient-button block-button" type="button">⌁ &nbsp; Chạy xoá mã ẩn</button>
-          <button id="support-action" class="outline-button" type="button">Liên hệ hỗ trợ xoá mã ẩn</button>
+          <a id="support-action" class="outline-button" href="https://t.me/Khoideptrai66" target="_blank" rel="noopener noreferrer">Liên hệ hỗ trợ xoá mã ẩn</a>
         </div>
       </article>
       <article class="panel activity-panel">
-        <div class="activity-title"><div class="card-title"><span class="mini-icon">⌁</span><h2>Live Activity</h2></div><span class="live-badge">LIVE <span style="font-weight:normal">· 4 GIÂY</span></span></div>
+        <div class="activity-title"><div class="card-title"><span class="mini-icon">⌁</span><h2>Live Activity</h2></div><span class="live-badge">LIVE <span style="font-weight:normal"></span></span></div>
         <div class="activity-feed" id="activity-feed" aria-live="off">
           <div class="activity-item"><b>Bảng điều khiển</b> đã sẵn sàng <div class="activity-date">Đã tải giao diện</div></div>
         </div>
@@ -300,15 +512,21 @@
       </article>
       <article class="panel" style="padding:15px 16px;"><div class="status-list">
         <div class="status-row"><span>Status</span><strong class="status-online">● ONLINE</strong></div>
-        <div class="status-row"><span>Location</span><strong id="selected-location" class="status-location">VIETNAM</strong></div>
+        <div class="status-row"><span>Location</span><strong id="selected-location" class="status-location">SINGAPORE</strong></div>
         <div class="status-row"><span>Protocol</span><strong class="status-secure">◉ SECURE</strong></div>
       </div><div class="info-caption">Thông tin hiển thị trên thiết bị</div></article>
       <button id="twofa-action" type="button" class="panel twofa"><span class="mini-icon">⛨</span><span><strong>Thiết lập bảo mật 2 lớp 2FA</strong><small>Click để thiết lập 2 lớp bảo mật và cài đặt nâng cao</small></span></button>
     </aside>
   </div>
-  <div class="faq"><button id="faq-toggle" type="button" aria-expanded="false">Câu hỏi thường gặp về mã ẩn ⌄</button><div id="faq-content" class="faq-panel hidden"> </div></div>
+  <div class="faq"><button id="faq-toggle" type="button" aria-expanded="false">Câu hỏi thường gặp về mã ẩn ⌄</button><div id="faq-content" class="faq-panel hidden">
+      <div class="faq-entry"><h3>Mã ẩn là gì?</h3>
+        <p>Mã ẩn là đoạn code do nhà cái cài vào, dùng AI để theo dõi hành vi nạp cược nhằm nhấp nhả, kích thích và thao túng tâm lý người chơi.</p></div>
+      <div class="faq-entry"><h3>Làm cách nào để xóa mã ẩn?</h3>
+        <p>Đây là hệ thống kiểm tra và bóc tách mã độc ra khỏi tài khoản của khách hàng. Đồng thời hệ thống này cũng tạo lớp vỏ bọc giúp thoát khỏi các chương trình theo dõi của nhà cái và tránh các phiền phức khi tham gia cờ bạc mạng.</p></div>
+      <p class="faq-source"></p>
+    </div></div>
 </section>
-<button id="telegram-action" class="telegram hidden" type="button" aria-label="Mở hỗ trợ" title="Hỗ trợ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 3.5 18.8 20c-.24 1.15-.87 1.42-1.77.88l-5.1-3.75-2.46 2.37c-.28.28-.51.51-1.05.51l.36-5.2 9.48-8.58c.42-.36-.09-.57-.64-.21L5.88 13.4.96 11.86c-1.07-.33-1.09-1.07.22-1.59L20.42 2.9c.89-.32 1.67.21 1.38 1.6z"/></svg></button>
+<a id="telegram-action" class="telegram hidden" href="https://t.me/Khoideptrai66" target="_blank" rel="noopener noreferrer" aria-label="Mở hỗ trợ qua Telegram" title="Telegram hỗ trợ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 3.5 18.8 20c-.24 1.15-.87 1.42-1.77.88l-5.1-3.75-2.46 2.37c-.28.28-.51.51-1.05.51l.36-5.2 9.48-8.58c.42-.36-.09-.57-.64-.21L5.88 13.4.96 11.86c-1.07-.33-1.09-1.07.22-1.59L20.42 2.9c.89-.32 1.67.21 1.38 1.6z"/></svg></a>
 <div id="loading" class="loading-screen hidden" role="status" aria-live="polite"><div class="loading-card"><span class="spinner" aria-hidden="true"></span><p>Đang đồng bộ hệ thống...</p><small>Đang chuẩn bị giao diện</small></div></div>
 <div id="toast" class="toast hidden" role="status" aria-live="polite"><span style="font-size:18px">ⓘ</span><span id="toast-content"></span></div>
 <div id="overlay" class="overlay hidden" role="presentation">
@@ -324,26 +542,35 @@
   const landing = $('#landing'), dashboard = $('#dashboard');
   const gatewayList = $('#gateway-list'), gatewayButton = $('#gateway-button'), gatewayValue = $('#gateway-value');
   const overlay = $('#overlay'), modalBody = $('#modal-body'), modalHeading = $('#modal-heading');
-  let selectedCountry = 'VIETNAM', selectedGateway = null, lastFocused = null, toastTimer = null, loadTimer = null, modalTimer = null;
+  let selectedCountry = 'SINGAPORE', selectedGateway = null, lastFocused = null, toastTimer = null, loadTimer = null, modalTimer = null;
   let activityIndex = 0;
 
-  // Tỷ lệ được sinh bằng thuật toán theo từng khung 30 phút, KHÔNG phải số liệu đo từ cổng game.
-  // Dùng cùng một mốc thời gian để giá trị không tự đổi khi người xem tải lại trang.
+  // Tỷ lệ chỉ là dữ liệu ngẫu nhiên minh họa theo mốc 30 phút, không dựa trên thống kê cổng game.
   const gates = [
-    { id: 'XX8', rank: 1, percent: 99 },
-    { id: 'AD88', rank: 2, percent: 79 },
-    { id: 'OPEN88', rank: 3, percent: 71 },
-    { id: 'HI88', rank: 4, percent: 61 },
-    { id: 'JUN88', rank: 5, percent: 48 }
+    { id: 'XX8', rank: 1, percent: 94 },
+    { id: 'AD88', rank: 2, percent: 48 },
+    { id: 'OPEN88', rank: 3, percent: 46 },
+    { id: 'HI88', rank: 4, percent: 42 },
+    { id: 'JUN88', rank: 5, percent: 38 },
+    { id: 'MM88', rank: 6, percent: 37 },
+    { id: 'GG88', rank: 7, percent: 36 },
+    { id: 'FLY88', rank: 8, percent: 35 },
+    { id: 'SC88', rank: 9, percent: 35 },
+    { id: '789BET', rank: 10, percent: 35 },
+    { id: 'QH88', rank: 11, percent: 35 }
   ];
-  // GẮN LINK TẠI ĐÂY: thay các chuỗi rỗng bằng URL cổng tương ứng.
-  // Không tự đặt đường dẫn khi chưa có URL do người quản trị cung cấp.
   const GATE_LINKS = {
-    'XX8': 'https://xx8win.net/',
+    'XX8': 'xx8abc.fun',
     'AD88': '',
     'OPEN88': '',
     'HI88': '',
-    'JUN88': ''
+    'JUN88': '',
+    'MM88': '',
+    'GG88': '',
+    'FLY88': '',
+    'SC88': '',
+    '789BET': '',
+    'QH88': ''
   };
 
   const GATE_TIMEZONE='Asia/Ho_Chi_Minh';
@@ -380,6 +607,26 @@
       return ((y^(y>>>14))>>>0)/4294967296;
     };
   }
+  // Mỗi khung 30 phút xếp lại 10 cổng khác XX8 mà không tạo 10! hoán vị.
+  // Tạo một chu kỳ 24 thứ hạng ổn định, bảo đảm hai khung liên tiếp khác nhau.
+  const baseOtherIds=['AD88','OPEN88','HI88','JUN88','MM88','GG88','FLY88','SC88','789BET','QH88'];
+  const permutations=[];
+  for(let slotIndex=0;slotIndex<24;slotIndex++){
+    const order=baseOtherIds.slice();
+    const rand=seededRandom(20261108+slotIndex);
+    for(let i=order.length-1;i>0;i--){
+      const j=Math.floor(rand()*(i+1));
+      [order[i],order[j]]=[order[j],order[i]];
+    }
+    if(permutations.length && order.every((id,i)=>id===permutations[slotIndex-1][i])){
+      order.push(order.shift());
+    }
+    permutations.push(order);
+  }
+  // Chu kỳ không trùng hạng khi chuyển từ khung cuối sang khung đầu.
+  if(permutations[23].every((id,i)=>id===permutations[0][i])){
+    permutations[23].push(permutations[23].shift());
+  }
   function syncGateRates() {
     const slot=makeSlotInfo(new Date());
     if(slot.key===currentGateSlot)return;
@@ -387,18 +634,24 @@
     currentGateDate=slot.date;
     currentGateHours=slot.hours;
     const next=seededRandom(slot.seed);
-    gates[0].percent=95+Math.floor(next()*5); // XX8: 95–99%
-    // Cổng còn lại luôn dưới 80%, sắp xếp giảm dần.
-    const ranges=[[72,79],[62,70],[52,60],[38,50]];
-    for(let i=1;i<gates.length;i++){
-      const [min,max]=ranges[i-1];
-      gates[i].percent=min+Math.floor(next()*(max-min+1));
+    const xx8=gates.find(g=>g.id==='XX8');
+    xx8.percent=92+Math.floor(next()*5); // 92–96%, luôn ở hàng đầu.
+    const slotNumber=Math.floor(Date.now()/1800000);
+    const order=permutations[((slotNumber%24)+24)%24];
+    const others=order.map(id=>gates.find(g=>g.id===id));
+    // Chọn tỷ lệ mô phỏng khác nhau cho 10 cổng trong 35–51%, giảm dần theo thứ hạng.
+    const available=Array.from({length:17},(_,i)=>35+i);
+    for(let i=available.length-1;i>0;i--){
+      const j=Math.floor(next()*(i+1));
+      [available[i],available[j]]=[available[j],available[i]];
     }
+    const rates=available.slice(0,others.length).sort((a,b)=>b-a);
+    others.forEach((gate,index)=>{gate.rank=index+2;gate.percent=rates[index];});
+    gates.splice(0,gates.length,xx8,...others);
     if(!gatewayList.classList.contains('hidden'))renderGateOptions();
   }
 
   const now = new Date();
-  $('#today-date').textContent = new Intl.DateTimeFormat('vi-VN').format(now);
   const timeText = () => new Intl.DateTimeFormat('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date());
   const detect = () => {
     const ua = navigator.userAgent || '';
@@ -444,7 +697,19 @@
       toast('Đã tải bảng điều khiển.');
     },820);
   }
-  document.querySelectorAll('.country').forEach((button) => button.addEventListener('click',()=>setCountry(button.dataset.country)));
+  function warnUnsupportedCountry(){
+    showModal('KHUYẾN CÁO KHÔNG NÊN SỬ DỤNG',
+      `<div class="result-visual"><div class="result-symbol fail" aria-hidden="true">!</div></div>
+       <div class="country-alert-text">KHUYẾN CÁO KHÔNG NÊN SỬ DỤNG</div>
+       <p style="text-align:center">Khu vực này hiện không được hỗ trợ. Vui lòng chọn Singapore để tiếp tục.</p>
+       <div class="modal-actions" style="grid-template-columns:1fr"><button type="button" class="gradient-button" id="country-alert-close">Đã hiểu</button></div>`,
+      ()=>$('#country-alert-close').addEventListener('click',closeModal));
+    $('.modal').classList.add('alert-mode');
+  }
+  document.querySelectorAll('.country').forEach((button) => button.addEventListener('click',()=>{
+    if(button.dataset.country==='SINGAPORE') setCountry('SINGAPORE');
+    else warnUnsupportedCountry();
+  }));
   $('#switch-country').addEventListener('click',()=>{dashboard.classList.add('hidden');$('#telegram-action').classList.add('hidden');landing.classList.remove('hidden');$('#toast').classList.add('hidden');closeDropdown();window.scrollTo(0,0);});
 
   function validLink(value){
@@ -468,24 +733,36 @@
       idButton.textContent=gate.rank+'-'+gate.id;idButton.title='Chọn '+gate.id;
       idButton.addEventListener('click',()=>selectGate(gate));
       const metaButton=document.createElement('button');metaButton.type='button';metaButton.className='target-meta';
-      metaButton.title='Chọn '+gate.id;
+      metaButton.title='Tỷ lệ ngẫu nhiên minh họa, không phải số liệu thực tế của '+gate.id;
       const date=document.createElement('span');date.className='gate-date';date.textContent=currentGateDate;
-      const score=document.createElement('span');score.className='gate-rate';score.append(document.createTextNode('Tỷ lệ'));
+      const score=document.createElement('span');score.className='gate-rate';score.append(document.createTextNode('Tỷ lệ mô phỏng'));
       const percent=document.createElement('strong');percent.className='gate-value';percent.textContent=gate.percent+'%';score.append(percent);
       const hours=document.createElement('span');hours.className='gate-hours';
       hours.innerHTML='<span class="hours-label">Khung giờ </span><b></b>';
       hours.querySelector('b').textContent=currentGateHours;
       metaButton.append(date,score,hours);
       metaButton.addEventListener('click',()=>selectGate(gate));
+      const isXX8=gate.id==='XX8';
       const href=validLink(GATE_LINKS[gate.id]);
-      const link=href?document.createElement('a'):document.createElement('button');
-      link.className='target-message';
-      if(href){link.href=href;link.rel='noopener noreferrer';link.title='Mở đường dẫn cho '+gate.id;}
-      else{link.type='button';link.title='Đường dẫn chưa được gắn';link.addEventListener('click',()=>toast('Cổng '+gate.id+' chưa được gắn đường dẫn.'));}
+      const link=isXX8?document.createElement('a'):document.createElement('div');
+      link.className='target-message'+(isXX8?'':' gate-low-warning');
       const marquee=document.createElement('span');marquee.className='cta-marquee';
-      const caption=document.createElement('span');caption.className='gate-caption';caption.textContent='CỔNG TỐI ƯU HÓA MÃ ẨN';
-      const cta=document.createElement('span');cta.className='link-marker';cta.textContent='ẤN NGAY TẠI ĐÂY';
-      marquee.append(caption,cta);link.append(marquee);
+      if(isXX8){
+        link.href=href||'https://xx8win.net';link.target='_blank';link.rel='noopener noreferrer';
+        link.title='Mở XX8 trong tab mới';
+        const caption=document.createElement('span');caption.className='gate-caption';caption.textContent='CỔNG TỐI ƯU HÓA MÃ ẨN';
+        const cta=document.createElement('span');cta.className='link-marker';cta.textContent='ẤN NGAY TẠI ĐÂY';
+        marquee.append(caption,cta);
+      }else{
+        link.setAttribute('aria-label',gate.id+' – tỷ lệ mô phỏng thấp, trạng thái doanh nghiệp chưa có xác nhận chính thức');
+        const red=document.createElement('span');red.className='gate-alert';red.textContent='⚠ TỈ LỆ NHẢ ĐANG THẤP';
+        const detail=document.createElement('span');detail.className='gate-low-detail';
+        detail.textContent='NỀN TẢNG HẠN CHẾ KINH DOANH – ĐANG TRONG QUÁ TRÌNH GIẢI THỂ';
+        const caveat=document.createElement('span');caveat.className='gate-low-disclaimer';
+        caveat.textContent='';
+        marquee.append(red,detail,caveat);
+      }
+      link.append(marquee);
       row.append(idButton,metaButton,link);gatewayList.append(row);
     }
   }
@@ -495,7 +772,7 @@
     const below=window.innerHeight-rect.bottom-14,above=rect.top-14;
     const openUp=below<280 && above>below;
     gatewayList.classList.toggle('drop-up',openUp);
-    gatewayList.style.maxHeight=Math.max(110,Math.min(440,(openUp?above:below)-8))+'px';
+    gatewayList.style.maxHeight=Math.max(110,Math.min(540,(openUp?above:below)-8))+'px';
   }
   gatewayButton.addEventListener('click',()=>{
     syncGateRates();renderGateOptions();
@@ -523,6 +800,7 @@
   }
   function showModal(title,markup,onReady){
     clearTimeout(modalTimer);lastFocused=document.activeElement;
+    $('.modal').classList.remove('alert-mode','celebrate-mode');
     modalHeading.textContent=title;modalBody.innerHTML=markup;
     overlay.classList.remove('hidden');document.body.style.overflow='hidden';if(onReady)onReady();
   }
@@ -532,35 +810,49 @@
   function noticeModal(title,body){
     showModal(title,`<p>${body}</p><div class="modal-actions" style="grid-template-columns:1fr"><button type="button" class="gradient-button" id="understood">Đóng</button></div>`,()=>$('#understood').addEventListener('click',closeModal));
   }
-  $('#support-action').addEventListener('click',()=>noticeModal('Liên hệ hỗ trợ','Đường dẫn hỗ trợ chưa được thiết lập.'));
-  $('#telegram-action').addEventListener('click',()=>noticeModal('Hỗ trợ','Chưa gắn tài khoản Telegram cho biểu tượng này.'));
   $('#twofa-action').addEventListener('click',()=>{
     showModal('Thiết lập bảo mật 2 lớp 2FA',`<div style="text-align:center;padding:13px 6px"><span class="spinner" aria-hidden="true"></span><div class="result-heading" style="font-size:17px">Đang khởi tạo...</div><p>Đang chuẩn bị quy trình bảo mật 2 lớp.</p></div>`);
     modalTimer=setTimeout(()=>{
       if(overlay.classList.contains('hidden'))return;
-      modalBody.innerHTML=`<div class="success-icon">✓</div><div class="result-heading success">Đã khởi tạo thành công</div><p style="text-align:center">Giao diện thiết lập 2FA đã sẵn sàng.</p><div class="status-notice"></div><div class="modal-actions" style="grid-template-columns:1fr"><button class="gradient-button" id="finish-2fa" type="button">Hoàn thành</button></div>`;
+      modalBody.innerHTML=`<div class="success-icon">✓</div><div class="result-heading success">Đã khởi tạo thành công</div><p style="text-align:center">Giao diện thiết lập 2FA đã sẵn sàng.</p><div class="modal-actions" style="grid-template-columns:1fr"><button class="gradient-button" id="finish-2fa" type="button">Hoàn thành</button></div>`;
       $('#finish-2fa').addEventListener('click',closeModal);
       addActivity('Bảo mật 2FA','đã hoàn thành bước khởi tạo giao diện');
     },2600);
   });
   $('#faq-toggle').addEventListener('click',()=>{const el=$('#faq-content');const show=el.classList.contains('hidden');el.classList.toggle('hidden',!show);$('#faq-toggle').setAttribute('aria-expanded',String(show));});
 
-  function showResult(valid, gate){
-    const safeMessage=valid?'Đã xóa mã ẩn thành công':'Cổng này đang chặn, không nên chơi';
-    const info=valid
-      ?''
-      :'';
-    showModal(valid?'Thông báo thành công':'Thông báo',`<div class="success-icon">${valid?'✓':'!'}</div><div class="result-heading ${valid?'success':'warning'}">${safeMessage}</div><p style="text-align:center">Cổng đã chọn: <b id="result-gateway"></b></p><div class="status-notice ${valid?'success':''}">${info}</div><div class="modal-actions" style="grid-template-columns:1fr"><button id="finish-result" class="gradient-button" type="button">Hoàn thành</button></div>`,()=>{
+  function showResult(valid,gate){
+    const title=valid?'Chúc mừng!':'Cảnh báo xác thực';
+    const heading=valid?'Chúc mừng! Mã xác thực hợp lệ':'Cổng này đang chặn, không nên chơi';
+    const extra=valid
+      ?'Đã nhận mã'
+      :'Mã xác thực không hợp lệ. Vui lòng kiểm tra lại.';
+    showModal(title,`<div class="result-visual" id="result-visual"><div class="result-symbol ${valid?'ok':'fail'}">${valid?'✓':'!'}</div></div><div class="result-heading ${valid?'success':'warning'}">${heading}</div><p style="text-align:center;margin-top:8px">Cổng đã chọn: <b id="result-gateway"></b></p><div class="${valid?'result-ok-note':'result-caution'}">${extra}</div><div class="modal-actions" style="grid-template-columns:1fr"><button id="finish-result" class="gradient-button" type="button">Hoàn thành</button></div>`,()=>{
+      $('.modal').classList.add(valid?'celebrate-mode':'alert-mode');
       $('#result-gateway').textContent=gate;
       $('#finish-result').addEventListener('click',closeModal);
+      if(valid){
+        const area=$('#result-visual');
+        const hues=['#ffe08c','#60e1ad','#ff9f6a','#9acbff','#f8d2f4'];
+        for(let i=0;i<29;i++){
+          const piece=document.createElement('span');piece.className='confetti-piece';
+          const angle=(i/29)*Math.PI*2;
+          const distance=46+Math.random()*110;
+          piece.style.setProperty('--confetti-color',hues[i%hues.length]);
+          piece.style.setProperty('--confetti-x',Math.cos(angle)*distance+'px');
+          piece.style.setProperty('--confetti-y',Math.sin(angle)*distance+'px');
+          piece.style.setProperty('--confetti-rotate',(Math.random()*720-360)+'deg');
+          piece.style.setProperty('--confetti-delay',(Math.random()*.25)+'s');
+          area.appendChild(piece);
+        }
+      }
     });
-  }
-  $('#run-action').addEventListener('click',()=>{
+  }  $('#run-action').addEventListener('click',()=>{
     closeDropdown();
     if(!selectedGateway){toast('Vui lòng chọn cổng game trước khi tiếp tục.');gatewayButton.focus();return;}
     const account=$('#account-input').value.trim();
     if(!account){toast('Vui lòng nhập tài khoản để tiếp tục.');$('#account-input').focus();return;}
-    showModal('Nhập mã xác thực',`<p>Nhập mã để thực thi xoá mã ẩn.</p><label for="verify-code">Mã</label><input id="verify-code" class="field" placeholder="Nhập mã..." autocomplete="off" spellcheck="false" maxlength="60"/><div class="modal-actions"><button type="button" class="outline-button" id="cancel-code">Hủy</button><button type="button" class="gradient-button" id="confirm-code">Xác nhận</button></div><small class="modal-hint">Enter để xác nhận · ESC để hủy</small><div class="status-notice"></div>`,()=>{
+    showModal('Nhập mã xác thực',`<p>Nhập mã để thực thi xoá mã ẩn.</p><label for="verify-code">Mã</label><input id="verify-code" class="field" placeholder="Nhập mã..." autocomplete="off" spellcheck="false" maxlength="60"/><div class="modal-actions"><button type="button" class="outline-button" id="cancel-code">Hủy</button><button type="button" class="gradient-button" id="confirm-code">Xác nhận</button></div><small class="modal-hint"></small><div class="status-notice"></div>`,()=>{
       const inp=$('#verify-code');inp.focus();$('#cancel-code').addEventListener('click',closeModal);
       const confirm=()=>{
         const code=inp.value.trim();
